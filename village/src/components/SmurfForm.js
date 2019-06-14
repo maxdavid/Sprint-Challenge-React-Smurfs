@@ -1,5 +1,31 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
+
+const InputForm = styled.form`
+  width: 200px;
+  height: 180px;
+  margin: 0 auto;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  input {
+    padding: 5px;
+    width: 100%;
+  }
+
+  button {
+    @import url('https://fonts.googleapis.com/css?family=Montserrat+Alternates:400,500,700&display=swap');
+    font-family: 'Montserrat Alternates', sans-serif;
+    padding: 10px 15px;
+    border-radius: 3px;
+    background-color: #588cc2;
+    color: white;
+  }
+`;
 
 class SmurfForm extends Component {
   constructor(props) {
@@ -36,7 +62,7 @@ class SmurfForm extends Component {
   render() {
     return (
       <div className='SmurfForm'>
-        <form onSubmit={this.addSmurf}>
+        <InputForm onSubmit={this.addSmurf}>
           <input
             onChange={this.handleInputChange}
             placeholder='name'
@@ -56,7 +82,7 @@ class SmurfForm extends Component {
             name='height'
           />
           <button type='submit'>Add to the village</button>
-        </form>
+        </InputForm>
       </div>
     );
   }

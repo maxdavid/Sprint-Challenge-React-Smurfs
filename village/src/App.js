@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {
-  BrowserRouter as Router,
-  Route,
-  NavLink,
-  withRouter
-} from 'react-router-dom';
+import styled from 'styled-components';
+import smurfImg from './assets/smurf.png';
+import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom';
 
-import './App.css';
+import './App.scss';
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
+import SmurfNav from './components/SmurfNav';
+
+const AppContainer = styled.div`
+  width: 100%;
+  height: 80%;
+`;
+
+const MainContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  background: url(${smurfImg}) bottom left no-repeat;
+`;
 
 class App extends Component {
   constructor(props) {
@@ -26,29 +35,20 @@ class App extends Component {
       .then(res => this.setState({ smurfs: res.data }))
       .catch(err => console.log(err));
   }
-  // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
-  // Notice what your map function is looping over and returning inside of Smurfs.
-  // You'll need to make sure you have the right properties on state and pass them down to props.
+
   render() {
     return (
-      <div className='App'>
-        <nav>
-          <h1>Smurf Village</h1>
-          <NavLink exact to='/'>
-            Home
-          </NavLink>
-          <NavLink exact to='/smurf-form'>
-            Add Smurf
-          </NavLink>
-        </nav>
-
-        <Route
-          exact
-          path='/'
-          render={props => <Smurfs smurfs={this.state.smurfs} />}
-        />
-        <Route exact path='/smurf-form' component={SmurfForm} />
-      </div>
+      <AppContainer>
+        <SmurfNav />
+        <MainContainer>
+          <Route
+            exact
+            path='/'
+            render={props => <Smurfs smurfs={this.state.smurfs} />}
+          />
+          <Route exact path='/smurf-form' component={SmurfForm} />
+        </MainContainer>
+      </AppContainer>
     );
   }
 }
