@@ -36,6 +36,16 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
+  addSmurf = smurf => {
+    axios
+      .post(this.apiUrl, smurf)
+      .then(res => {
+        this.setState({ smurfs: res.data });
+        this.props.history.push('/');
+      })
+      .catch(err => console.log(err));
+  };
+
   render() {
     return (
       <AppContainer>
@@ -46,11 +56,15 @@ class App extends Component {
             path='/'
             render={props => <Smurfs smurfs={this.state.smurfs} />}
           />
-          <Route exact path='/smurf-form' component={SmurfForm} />
+          <Route
+            exact
+            path='/smurf-form'
+            render={props => <SmurfForm addSmurf={this.addSmurf} />}
+          />
         </MainContainer>
       </AppContainer>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

@@ -7,8 +7,9 @@ const SmurfList = styled.div`
   width: 800px;
   margin: 0 auto;
   margin-top: 20px;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
   align-items: center;
 `;
 

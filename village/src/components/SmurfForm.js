@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 
 const InputForm = styled.form`
@@ -38,12 +37,17 @@ class SmurfForm extends Component {
     };
   }
 
-  addSmurf = event => {
-    event.preventDefault();
+  handleInputChange = e => {
+    let value = e.target.value;
+    if (value && e.target.name === 'age') value = parseInt(value, 10);
 
+    this.setState({ [e.target.name]: value });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
     this.setState({ id: Date.now() });
-    axios.post('http://localhost:3333/smurfs', this.state);
-
+    this.props.addSmurf(this.state);
     this.setState({
       id: 0,
       name: '',
@@ -52,17 +56,10 @@ class SmurfForm extends Component {
     });
   };
 
-  handleInputChange = e => {
-    let value = e.target.value;
-    if (value && e.target.name === 'age') value = parseInt(value, 10);
-
-    this.setState({ [e.target.name]: value });
-  };
-
   render() {
     return (
       <div className='SmurfForm'>
-        <InputForm onSubmit={this.addSmurf}>
+        <InputForm onSubmit={this.handleSubmit}>
           <input
             onChange={this.handleInputChange}
             placeholder='name'
